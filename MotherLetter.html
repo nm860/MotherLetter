@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>给妈妈的互动故事信</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* 场景样式 */
+        .scene {
+            width: 100vw;
+            height: 100vh;
+            background: url('picture/room.jpg') no-repeat center/cover;
+            position: fixed;
+            top: 0;
+            left: 0;
+            overflow: hidden;
+            transition: opacity 1s;
+        }
+
+        /* 角色样式 */
+        .character {
+            width: 200px;
+            position: absolute;
+            bottom: 15%;
+            transition: all 2s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            filter: drop-shadow(0 5px 10px rgba(0,0,0,0.2));
+        }
+
+        #son {
+            left: -200px;
+        }
+
+        #mother {
+            right: 15%;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        /* 引导提示 */
+        .guide {
+            position: fixed;
+            top: 60%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #ff69b4;
+            font-size: 24px;
+            text-shadow: 2px 2px 4px rgba(255,255,255,0.5);
+            display: flex;
+            align-items: center;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .hand {
+            font-size: 40px;
+            margin-right: 15px;
+            animation: point 2s infinite;
+        }
+
+        /* 书信容器 */
+        .letter {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 240, 245, 0.98);
+            padding: 40px;
+            overflow-y: auto;
+            opacity: 0;
+            transition: opacity 1s;
+            display: none;
+        }
+
+        /* 书信内容 */
+        .content {
+            max-width: 800px;
+            margin: 0 auto;
+            font-family: 'Microsoft YaHei', sans-serif;
+            line-height: 1.8;
+            color: #555;
+            transform: translateY(20px);
+            transition: transform 0.5s;
+        }
+
+        .title {
+            text-align: center;
+            color: #ff69b4;
+            font-size: 2.5em;
+            margin-bottom: 30px;
+            letter-spacing: 2px;
+        }
+
+        /* 关闭按钮 */
+        .close-btn {
+            position: fixed;
+            top: 30px;
+            right: 30px;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .close-btn:hover {
+            transform: rotate(90deg);
+        }
+
+        /* 音乐控制 */
+        .music-control {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            opacity: 0.8;
+            transition: all 0.3s;
+        }
+
+        /* 动画定义 */
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        @keyframes point {
+            0% { transform: translateX(0); }
+            50% { transform: translateX(15px); }
+            100% { transform: translateX(0); }
+        }
+
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+
+        /* 移动端适配 */
+        @media (max-width: 768px) {
+            .character { width: 150px; }
+            #mother { right: 5%; }
+            .guide { font-size: 18px; top: 70%; }
+            .hand { font-size: 30px; }
+            .letter { padding: 20px; }
+        }
+    </style>
+</head>
+<body>
+    <!-- 场景 -->
+    <div class="scene">
+        <img src="picture/music_on.png" 
+             class="music-control"
+             id="musicControl"
+             onclick="toggleMusic()">
+        <div class="guide" id="guide">
+            <div class="hand">👆</div>
+            <div>点击妈妈查收惊喜</div>
+        </div>
+        <img src="picture/son.png" 
+             class="character" 
+             id="son">
+        <img src="picture/mother.png" 
+             class="character" 
+             id="mother">
+    </div>
+
+    <!-- 书信内容 -->
+    <div class="letter" id="letter">
+        <img src="picture/close.png" 
+             class="close-btn"
+             onclick="closeLetter()">
+        <div class="content">
+            <h1 class="title">❤ 给妈妈的信 ❤</h1>
+            <p>亲爱的妈妈：</p>
+            
+            <p>今天我想给您讲一个关于小树苗和大树的故事...</p>
+
+            <h3>第一章：幼苗的守护</h3>
+            <p>记得小时候学骑自行车，您在后面扶着车座跟着跑，就像大树用根系稳固着小树苗。当我终于能独自骑行时，回头看见您擦汗的微笑，那是我见过最温暖的阳光。</p>
+
+            <h3>第二章：风雨同舟</h3>
+            <p>中考那年我发高烧，您整夜用温水给我擦身降温。凌晨三点窗外的月光照在您疲惫的脸上，那一刻我突然明白：母爱就是永不熄灭的月光。</p>
+
+            <h3>第三章：时光邮差</h3>
+            <!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>樱花飘落效果</title>
+    <style>
+        /* 容器设置 */
+        .sakura-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none; /* 允许穿透点击 */
+            z-index: 9999;
+        }
+
+        /* 单个花瓣样式 */
+        .petal {
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            background: url('cherry-petal.png') no-repeat center/contain;
+            opacity: 0.8;
+            animation: fall linear infinite;
+            /* 性能优化 */
+            will-change: transform, opacity;
+        }
+
+        /* 如果没有图片，可以使用CSS绘制花瓣 */
+        .petal.css-petal {
+            background: none;
+            background: radial-gradient(circle at 70% 30%, 
+                #ffb7c5 20%, 
+                #ff69b4 50%, 
+                rgba(255,255,255,0.8) 90%);
+            clip-path: polygon(50% 0%, 60% 20%, 100% 50%, 60% 80%, 50% 100%, 40% 80%, 0% 50%, 40% 20%);
+            transform: rotate(45deg);
+        }
+
+        /* 飘落动画 */
+        @keyframes fall {
+            0% {
+                transform: translateY(-10vh) rotate(0deg) scale(1);
+                opacity: 0;
+            }
+            20% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 0.8;
+            }
+            100% {
+                transform: 
+                    translateY(110vh) 
+                    rotate(720deg) 
+                    translateX(50vw)  /* 水平飘移 */
+                    scale(0.5);
+                opacity: 0;
+            }
+        }
+
+        /* 移动端适配 */
+        @media (max-width: 768px) {
+            .petal {
+                width: 20px;
+                height: 20px;
+                animation-duration: 8s !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 樱花容器 -->
+    <div class="sakura-container" id="sakuraContainer"></div>
+
+    <script>
+        // 动态生成花瓣
+        function createSakura() {
+            const container = document.getElementById('sakuraContainer');
+            
+            // 生成数量（建议15-30之间）
+            const petalCount = 20; 
+
+            for(let i = 0; i < petalCount; i++) {
+                const petal = document.createElement('div');
+                petal.className = Math.random() > 0.5 ? 'petal' : 'petal css-petal';
+
+                // 随机参数
+                const delay = Math.random() * 15; // 起始延迟0-15秒
+                const duration = 10 + Math.random() * 10; // 动画时长10-20秒
+                const startX = Math.random() * 100; // 起始水平位置0-100vw
+                
+                // 应用随机参数
+                petal.style.cssText = `
+                    left: ${startX}vw;
+                    animation-delay: ${delay}s;
+                    animation-duration: ${duration}s;
+                    transform: scale(${0.5 + Math.random()});
+                `;
+
+                container.appendChild(petal);
+            }
+        }
+
+        // 页面加载完成后启动
+        window.addEventListener('load', createSakura);
+
+        // 窗口大小变化时重置
+        window.addEventListener('resize', () => {
+            document.getElementById('sakuraContainer').innerHTML = '';
+            createSakura();
+        });
+    </script>
+</body>
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>给妈妈的一封互动回忆信</title>
+    <style>
+        /* 基础样式 */
+        body {
+            margin: 0;
+            background: #fff0f5;
+            font-family: 'Microsoft YaHei', sans-serif;
+        }
+
+        /* 主内容容器 */
+        .letter-container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 30px;
+            background: linear-gradient(to right, #ffeff8, #fff9fc);
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(255,182,193,0.3);
+        }
+
+        /* 互动按钮样式 */
+        .memory-btn {
+            display: block;
+            width: 200px;
+            margin: 30px auto;
+            padding: 15px 30px;
+            background: #ff69b4;
+            color: white;
+            border: none;
+            border-radius: 30px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(255,105,180,0.3);
+        }
+
+        .memory-btn:hover {
+            background: #ff1493;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(255,20,147,0.4);
+        }
+
+        /* 回忆编辑器样式 */
+        .memory-editor {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 90%;
+            max-width: 600px;
+            background: rgba(255, 249, 251, 0.98);
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 0 30px rgba(255,105,180,0.3);
+            z-index: 1000;
+            display: none;
+            opacity: 0;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .editor-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .editor-header h2 {
+            color: #ff69b4;
+            margin: 0;
+        }
+
+        .close-btn {
+            font-size: 24px;
+            color: #ff69b4;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .close-btn:hover {
+            transform: rotate(90deg);
+        }
+
+        #memoryContent {
+            width: 100%;
+            height: 200px;
+            padding: 15px;
+            border: 2px solid #ffb6c1;
+            border-radius: 10px;
+            margin: 15px 0;
+            resize: none;
+            font-size: 16px;
+        }
+
+        /* 遮罩层 */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 999;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- 主内容 -->
+   
+</html>
+            <div class="story-content">
+              <img src="picture/time_machine.png" 
+                   class="float-icon"
+                   onclick="showMemory('childhood')">
+              <p>那天整理旧物，发现您珍藏的铁盒...</p>
+              
+              <!-- 折叠内容 -->
+              <div class="memory-detail" id="memory-childhood">
+                <div class="timeline">
+                  <div class="dot" data-year="2003"></div>
+                  <div class="dot" data-year="2010"></div>
+                  <div class="dot" data-year="2020"></div>
+                </div>
+                <div class="memory-text">
+                  <p><span class="year">2012</span>从出生开始，就看到了你的头发</p>
+                  <p><span class="year">2018</span>泛黄的满分试卷：背面有您用铅笔写的"我的骄傲"</p>
+                  <p><span class="year">2020</span>疫情的时候你在身边时守护着我</p>
+                </div>
+              </div>
+          
+            <div style="text-align: center; margin: 30px 0;">
+                <img src="picture/heart.png" 
+                     style="width: 100px; opacity: 0.8;">
+            </div>
+
+            <p>妈妈，这些故事就像您织的毛衣，一针一线编织成我最温暖的铠甲。虽然我不常说，但请相信：</p>
+
+            <p style="text-align: center; font-size: 1.2em; color: #ff1493;">
+                您是我永远的英雄，比春风更暖，比星光更亮 ✨
+            </p>
+
+            <p style="text-align: right; margin-top: 40px; font-family: '楷体';">
+                永远爱您，您的孩子🌸<br>
+                
+            </p>
+        </div>
+    </div>
+
+    <!-- 音频 -->
+    <audio id="bgm">
+        <source src="music/A Mothers Love.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        // 初始化元素
+        const mother = document.getElementById('mother');
+        const son = document.getElementById('son');
+        const letter = document.getElementById('letter');
+        const guide = document.getElementById('guide');
+        const bgm = document.getElementById('bgm');
+        let isMusicPlaying = false;
+
+        // 初始动画
+        setTimeout(() => {
+            son.style.left = '15%';
+            setTimeout(() => {
+                guide.style.opacity = '1';
+                guide.style.animation = 'fadeIn 1s forwards';
+            }, 1500);
+        }, 500);
+
+        // 点击妈妈事件
+        mother.addEventListener('click', startAnimation);
+        mother.addEventListener('touchstart', startAnimation);
+
+        function startAnimation() {
+            mother.style.pointerEvents = 'none';
+            guide.style.display = 'none';
+
+            // 角色移动
+            son.style.left = '62%';
+            son.style.transform = 'scaleX(-1) rotate(-5deg)';
+
+            // 播放音乐
+            if(bgm.paused) {
+                bgm.volume = 0;
+                bgm.play();
+                fadeAudio(bgm, 0.3, 2000);
+            }
+
+            // 展示书信
+            setTimeout(() => {
+                letter.style.display = 'block';
+                setTimeout(() => {
+                    letter.style.opacity = '1';
+                    document.querySelector('.content').style.transform = 'translateY(0)';
+                }, 100);
+            }, 2000);
+        }
+
+        // 关闭书信
+        function closeLetter() {
+            letter.style.opacity = '0';
+            fadeAudio(bgm, 0, 1000);
+            setTimeout(() => {
+                letter.style.display = 'none';
+                resetScene();
+            }, 500);
+        }
+
+        // 重置场景
+        function resetScene() {
+            son.style.left = '15%';
+            son.style.transform = 'scaleX(1)';
+            setTimeout(() => {
+                mother.style.pointerEvents = 'auto';
+                guide.style.display = 'flex';
+            }, 1000);
+        }
+
+        // 音乐控制
+        function toggleMusic() {
+            isMusicPlaying = !isMusicPlaying;
+            const controlImg = document.getElementById('musicControl');
+            controlImg.src = isMusicPlaying ? 
+                'picture/music_off.png' :
+                'picture/music_on.png';
+            isMusicPlaying ? bgm.pause() : bgm.play();
+        }
+
+        // 音频渐变
+        function fadeAudio(audio, targetVolume, duration) {
+            const startVolume = audio.volume;
+            const delta = targetVolume - startVolume;
+            const startTime = Date.now();
+
+            function update() {
+                const progress = (Date.now() - startTime) / duration;
+                if(progress < 1) {
+                    audio.volume = startVolume + delta * progress;
+                    requestAnimationFrame(update);
+                } else {
+                    audio.volume = targetVolume;
+                }
+            }
+            update();
+        }
+
+        // 预加载资源
+        window.onload = () => {
+            const preloadImages = [
+                'file:///D:/编程文件/电子书信/picture/son.png',
+                'file:///D:/编程文件/电子书信/picture/mother.png',
+                'file:///D:/编程文件/电子书信/picture/heart.png',
+                'file:///D:/编程文件/电子书信/picture/close.png'
+            ];
+            preloadImages.forEach(src => new Image().src = src);
+            bgm.load();
+        }
+    </script>
+</body>
+</html>
